@@ -62,33 +62,24 @@ public class PathFindingOnSquaredGrid {
         Stopwatch timerFlow = new Stopwatch();
 
         /*
-
         CODE COMES HERE
-
         */
 
-
         PathFind pathFind = new PathFind();
-        ArrayList<Cell> path = pathFind.test(randomlyGenMatrix, new Cell(Ai, Aj), new Cell(Bi, Bj));
+        ArrayList<Cell> path = pathFind.find(randomlyGenMatrix, new Cell(Ai, Aj), new Cell(Bi, Bj));
+
+        System.out.println("Path Found. ");
 
         // THIS IS AN EXAMPLE ONLY ON HOW TO USE THE JAVA INTERNAL WATCH
         // Stop the clock ticking in order to capture the time being spent on inputting the coordinates
         // You should position this command accordingly in order to perform the algorithmic analysis
-
-        System.out.println("Path Found. ");
         StdOut.println("Elapsed time = " + timerFlow.elapsedTime());
 
         StdDraw.setPenColor(Color.RED);
 
-        for(Cell cell: path){
-            StdDraw.circle(cell.getY(), size - cell.getX()-1, .5);
+        for (Cell cell : path) {
+            StdDraw.circle(cell.getY(), size - cell.getX() - 1, .5);
         }
-
-
-
-
-
-
     }
 
     // given an N-by-N matrix of open cells, return an N-by-N matrix
@@ -100,7 +91,6 @@ public class PathFindingOnSquaredGrid {
         for (int j = 0; j < N; j++) {
             flow(open, full, 0, j);
         }
-
         return full;
     }
 

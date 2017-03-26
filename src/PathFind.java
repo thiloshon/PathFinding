@@ -6,57 +6,24 @@ import java.util.PriorityQueue;
  */
 public class PathFind {
 
-    static PriorityQueue<Cell> open;
-    static boolean closed[][];
-    Cell[][] grid;
-    Cell start, end;
+    private static PriorityQueue<Cell> open;
+    private static boolean closed[][];
+    private Cell[][] grid;
+    private Cell start, end;
 
-    ArrayList<Cell> path = new ArrayList<>();
+    private ArrayList<Cell> path = new ArrayList<>();
 
-    int horizontalVerticalCost;
-    int diagonalCost;
+    private int horizontalVerticalCost;
+    private int diagonalCost;
 
-    void setManhattanDistance(){
-        horizontalVerticalCost = 10;
-        diagonalCost = 20;
-    }
-
-    void setEculideanDistance(){
-        horizontalVerticalCost = 10;
-        diagonalCost = 14;
-    }
-
-    void setChebyshevDistance(){
-        horizontalVerticalCost = 10;
-        diagonalCost = 10;
-    }
-
-    public void setBlocks(boolean[][] matrix) {
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix.length; j++) {
-                if (!matrix[i][j]) {
-                    grid[i][j] = null;
-                }
-            }
-        }
-    }
-
-    /*
-    Params :
-    tCase = test case No.
-    x, y = Board's dimensions
-    si, sj = start location's x and y coordinates
-    ei, ej = end location's x and y coordinates
-    int[][] blocked = array containing inaccessible cell coordinates
-    */
-    public ArrayList<Cell> test(boolean[][] matrix, Cell start, Cell end) {
+    ArrayList<Cell> find(boolean[][] matrix, Cell start, Cell end) {
         //System.out.println("\n\nTest Case #" + tCase);
         //Reset
         this.start = start;
         this.end = end;
-        int size=matrix.length;
+        int size = matrix.length;
 
-        setEculideanDistance();
+        setEuclideanDistance();
         //setChebyshevDistance();
         //setManhattanDistance();
 
@@ -143,17 +110,13 @@ public class PathFind {
         return path;
     }
 
-
-
-    public void AStar() {
+    private void AStar() {
 
         //add the start location to open list.
-
-
-        try{
+        try {
             open.add(grid[start.getX()][start.getY()]);
-        }catch(NullPointerException e){
-            System.out.println("Start Point  is Blocked");
+        } catch (NullPointerException e) {
+            System.out.println("Start Point is Blocked");
         }
 
         Cell current;
@@ -170,47 +133,47 @@ public class PathFind {
             Cell t;
             if (current.getX() - 1 >= 0) {
                 t = grid[current.getX() - 1][current.getY()];
-                checkAndUpdateCost(current, t, current.getFinalCost() + horizontalVerticalCost);
+                updateCost(current, t, current.getFinalCost() + horizontalVerticalCost);
 
                 if (current.getY() - 1 >= 0) {
                     t = grid[current.getX() - 1][current.getY() - 1];
-                    checkAndUpdateCost(current, t, current.getFinalCost() + diagonalCost);
+                    updateCost(current, t, current.getFinalCost() + diagonalCost);
                 }
 
                 if (current.getY() + 1 < grid[0].length) {
                     t = grid[current.getX() - 1][current.getY() + 1];
-                    checkAndUpdateCost(current, t, current.getFinalCost() + diagonalCost);
+                    updateCost(current, t, current.getFinalCost() + diagonalCost);
                 }
             }
 
             if (current.getY() - 1 >= 0) {
                 t = grid[current.getX()][current.getY() - 1];
-                checkAndUpdateCost(current, t, current.getFinalCost() + horizontalVerticalCost);
+                updateCost(current, t, current.getFinalCost() + horizontalVerticalCost);
             }
 
             if (current.getY() + 1 < grid[0].length) {
                 t = grid[current.getX()][current.getY() + 1];
-                checkAndUpdateCost(current, t, current.getFinalCost() + horizontalVerticalCost);
+                updateCost(current, t, current.getFinalCost() + horizontalVerticalCost);
             }
 
             if (current.getX() + 1 < grid.length) {
                 t = grid[current.getX() + 1][current.getY()];
-                checkAndUpdateCost(current, t, current.getFinalCost() + horizontalVerticalCost);
+                updateCost(current, t, current.getFinalCost() + horizontalVerticalCost);
 
                 if (current.getY() - 1 >= 0) {
                     t = grid[current.getX() + 1][current.getY() - 1];
-                    checkAndUpdateCost(current, t, current.getFinalCost() + diagonalCost);
+                    updateCost(current, t, current.getFinalCost() + diagonalCost);
                 }
 
                 if (current.getY() + 1 < grid[0].length) {
                     t = grid[current.getX() + 1][current.getY() + 1];
-                    checkAndUpdateCost(current, t, current.getFinalCost() + diagonalCost);
+                    updateCost(current, t, current.getFinalCost() + diagonalCost);
                 }
             }
         }
     }
 
-    static void checkAndUpdateCost(Cell current, Cell t, int cost) {
+    private void updateCost(Cell current, Cell t, int cost) {
         if (t == null || closed[t.getX()][t.getY()]) return;
         int t_final_cost = t.getHeuristicCost() + cost;
 
@@ -220,5 +183,30 @@ public class PathFind {
             t.parent = current;
             if (!inOpen) open.add(t);
         }
+    }
+
+    private void setBlocks(boolean[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                if (!matrix[i][j]) {
+                    grid[i][j] = null;
+                }
+            }
+        }
+    }
+
+    private void setManhattanDistance() {
+        horizontalVerticalCost = 10;
+        diagonalCost = 20;
+    }
+
+    private void setEuclideanDistance() {
+        horizontalVerticalCost = 10;
+        diagonalCost = 14;
+    }
+
+    private void setChebyshevDistance() {
+        horizontalVerticalCost = 10;
+        diagonalCost = 10;
     }
 }
