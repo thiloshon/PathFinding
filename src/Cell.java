@@ -1,6 +1,11 @@
-/**
- * Created by Thiloshon on 26-Mar-17.
- */
+/*************************************************************************
+ *
+ *  Last update: 26-Mar-17
+ *
+ *  Name: Thiloshon Nagarajah
+ *  IIT ID: 2015298
+ *  UoW ID: w1608489
+ *************************************************************************/
 public class Cell {
     private int heuristicCost = 0; //Heuristic cost
     private int finalCost = 0; //G+H

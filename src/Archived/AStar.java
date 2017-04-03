@@ -1,3 +1,5 @@
+package Archived;
+
 import java.util.PriorityQueue;
 
 public class AStar {
@@ -45,12 +47,6 @@ public class AStar {
         endJ = j;
     }
 
-
-
-
-
-
-
     static void checkAndUpdateCost(Cell current, Cell t, int cost) {
         if (t == null || closed[t.i][t.j]) return;
         int t_final_cost = t.heuristicCost + cost;
@@ -62,14 +58,6 @@ public class AStar {
             if (!inOpen) open.add(t);
         }
     }
-
-
-
-
-
-
-
-
 
     public static void AStar() {
 

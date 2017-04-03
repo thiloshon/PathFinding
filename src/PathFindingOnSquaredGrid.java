@@ -1,3 +1,5 @@
+import com.sun.org.apache.bcel.internal.generic.NEW;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -16,14 +18,15 @@ public class PathFindingOnSquaredGrid {
     // test client
     public static void main(String[] args) {
         // boolean[][] open = StdArrayIO.readBoolean2D();
-        int size = 100;
+        int size = 320;
 
         // The following will generate a 10x10 squared grid with relatively few obstacles in it
         // The lower the second parameter, the more obstacles (black cells) are generated
-        boolean[][] randomlyGenMatrix = random(size, 0.8);
+        boolean[][] randomlyGenMatrix = random(size, 0.7);
 
         StdArrayIO.print(randomlyGenMatrix); // prints to the console
         show(randomlyGenMatrix, true); // prints as JFrame or whatever
+
 
         System.out.println();
         System.out.println("The system percolates: " + percolates(randomlyGenMatrix));
@@ -68,13 +71,14 @@ public class PathFindingOnSquaredGrid {
         PathFind pathFind = new PathFind();
         ArrayList<Cell> path = pathFind.find(randomlyGenMatrix, new Cell(Ai, Aj), new Cell(Bi, Bj));
 
-        System.out.println("Path Found. ");
+
 
         // THIS IS AN EXAMPLE ONLY ON HOW TO USE THE JAVA INTERNAL WATCH
         // Stop the clock ticking in order to capture the time being spent on inputting the coordinates
         // You should position this command accordingly in order to perform the algorithmic analysis
         StdOut.println("Elapsed time = " + timerFlow.elapsedTime());
 
+        System.out.println("Done. ");
         StdDraw.setPenColor(Color.RED);
 
         for (Cell cell : path) {

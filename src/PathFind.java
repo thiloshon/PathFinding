@@ -1,9 +1,15 @@
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
-/**
- * Created by Thiloshon on 26-Mar-17.
- */
+/*************************************************************************
+ *
+ *  Last update: 26-Mar-17
+ *
+ *  Name: Thiloshon Nagarajah
+ *  IIT ID: 2015298
+ *  UoW ID: w1608489
+ *************************************************************************/
+
 public class PathFind {
 
     private static PriorityQueue<Cell> open;
