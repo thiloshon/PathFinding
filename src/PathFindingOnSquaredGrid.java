@@ -18,7 +18,7 @@ public class PathFindingOnSquaredGrid {
     // test client
     public static void main(String[] args) {
         // boolean[][] open = StdArrayIO.readBoolean2D();
-        int size = 320;
+        int size = 10;
 
         // The following will generate a 10x10 squared grid with relatively few obstacles in it
         // The lower the second parameter, the more obstacles (black cells) are generated
@@ -27,13 +27,11 @@ public class PathFindingOnSquaredGrid {
         StdArrayIO.print(randomlyGenMatrix); // prints to the console
         show(randomlyGenMatrix, true); // prints as JFrame or whatever
 
+        // TODO: Uncomment this
+        //System.out.println("The system percolates: " + percolates(randomlyGenMatrix));
 
-        System.out.println();
-        System.out.println("The system percolates: " + percolates(randomlyGenMatrix));
-
-        System.out.println();
-        System.out.println("The system percolates directly: " + percolatesDirect(randomlyGenMatrix));
-        System.out.println();
+        // TODO: Uncomment this
+        //System.out.println("The system percolates directly: " + percolatesDirect(randomlyGenMatrix));
 
         // Reading the coordinates for points A and B on the input squared grid.
 
@@ -53,37 +51,62 @@ public class PathFindingOnSquaredGrid {
         // System.out.println("Coordinates for A: [" + Ai + "," + Aj + "]");
         // System.out.println("Coordinates for B: [" + Bi + "," + Bj + "]");
 
-        System.out.println("Drawing Start and End Points....");
+        //System.out.println("Drawing Start and End Points....");
 
-        show(randomlyGenMatrix, true, Ai, Aj, Bi, Bj);
+        //show(randomlyGenMatrix, true, Ai, Aj, Bi, Bj);
 
-        System.out.println("Points Drawn. Finding Path...");
+        StdDraw.setPenColor(StdDraw.BLACK);
+        StdDraw.circle(Aj, size - Ai - 1, .5);
+        StdDraw.circle(Bj, size - Bi - 1, .5);
+
+        //System.out.println("Points Drawn. Finding Path...");
 
         // THIS IS AN EXAMPLE ONLY ON HOW TO USE THE JAVA INTERNAL WATCH
         // Start the clock ticking in order to capture the time being spent on inputting the coordinates
         // You should position this command accordingly in order to perform the algorithmic analysis
         Stopwatch timerFlow = new Stopwatch();
 
-        /*
-        CODE COMES HERE
-        */
 
-        PathFind pathFind = new PathFind();
-        ArrayList<Cell> path = pathFind.find(randomlyGenMatrix, new Cell(Ai, Aj), new Cell(Bi, Bj));
-
+        PathFind pathFindEuclidean = new PathFind();
+        pathFindEuclidean.setEuclideanDistance();
+        System.out.print("Euclidean Distance");
+        ArrayList<Cell> pathEuclidean = pathFindEuclidean.find(randomlyGenMatrix, new Cell(Ai, Aj), new Cell(Bi, Bj));
 
 
         // THIS IS AN EXAMPLE ONLY ON HOW TO USE THE JAVA INTERNAL WATCH
         // Stop the clock ticking in order to capture the time being spent on inputting the coordinates
         // You should position this command accordingly in order to perform the algorithmic analysis
-        StdOut.println("Elapsed time = " + timerFlow.elapsedTime());
+        StdOut.println("\nElapsed time = " + timerFlow.elapsedTime());
+        StdOut.println("");
+        PathFind pathFind2 = new PathFind();
+        pathFind2.setManhattanDistance();
+        System.out.println("Manhattan Distance");
+        ArrayList<Cell> pathMH = pathFind2.find(randomlyGenMatrix, new Cell(Ai, Aj), new Cell(Bi, Bj));
 
-        System.out.println("Done. ");
+        PathFind pathFind3 = new PathFind();
+        pathFind3.setChebyshevDistance();
+        System.out.print("\nChebyshev Distance");
+        ArrayList<Cell> pathC = pathFind3.find(randomlyGenMatrix, new Cell(Ai, Aj), new Cell(Bi, Bj));
+
         StdDraw.setPenColor(Color.RED);
+        StdDraw.setPenRadius(0.008);
 
-        for (Cell cell : path) {
+        for (int x = 1; x < pathEuclidean.size(); x++) {
+            StdDraw.line(pathEuclidean.get(x - 1).getY(), size - 1 - pathEuclidean.get(x - 1).getX(), pathEuclidean.get(x).getY(), size - 1 - pathEuclidean.get(x).getX());
+        }
+
+        StdDraw.setPenColor(Color.green);
+        StdDraw.setPenRadius(0.002);
+
+        for (Cell cell : pathC) {
+            StdDraw.circle(cell.getY(), size - cell.getX() - 1, .4);
+        }
+
+        StdDraw.setPenColor(Color.MAGENTA);
+        for (Cell cell : pathMH) {
             StdDraw.circle(cell.getY(), size - cell.getX() - 1, .5);
         }
+
     }
 
     // given an N-by-N matrix of open cells, return an N-by-N matrix

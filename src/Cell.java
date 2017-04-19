@@ -7,10 +7,11 @@
  *  UoW ID: w1608489
  *************************************************************************/
 public class Cell {
-    private int heuristicCost = 0; //Heuristic cost
-    private int finalCost = 0; //G+H
+    private double heuristicCost = 0; //Heuristic cost
+    private double finalCost = 0; //G+H
     private int x, y;
     Cell parent;
+    double parentCost = 0;
 
     Cell(int x, int y) {
 
@@ -18,11 +19,11 @@ public class Cell {
         this.y = y;
     }
 
-    public void setHeuristicCost(int heuristicCost) {
+    public void setHeuristicCost(double heuristicCost) {
         this.heuristicCost = heuristicCost;
     }
 
-    public void setFinalCost(int finalCost) {
+    public void setFinalCost(double finalCost) {
         this.finalCost = finalCost;
     }
 
@@ -30,12 +31,12 @@ public class Cell {
         this.parent = parent;
     }
 
-    public int getHeuristicCost() {
+    public double getHeuristicCost() {
 
         return heuristicCost;
     }
 
-    public int getFinalCost() {
+    public double getFinalCost() {
         return finalCost;
     }
 
