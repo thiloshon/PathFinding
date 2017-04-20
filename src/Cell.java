@@ -19,11 +19,11 @@ public class Cell {
         this.y = y;
     }
 
-    public void setHeuristicCost(double heuristicCost) {
+    void setHeuristicCost(double heuristicCost) {
         this.heuristicCost = heuristicCost;
     }
 
-    public void setFinalCost(double finalCost) {
+    void setFinalCost(double finalCost) {
         this.finalCost = finalCost;
     }
 
@@ -31,20 +31,20 @@ public class Cell {
         this.parent = parent;
     }
 
-    public double getHeuristicCost() {
+    double getHeuristicCost() {
 
         return heuristicCost;
     }
 
-    public double getFinalCost() {
+    double getFinalCost() {
         return finalCost;
     }
 
-    public int getX() {
+    int getX() {
         return x;
     }
 
-    public int getY() {
+    int getY() {
         return y;
     }
 
